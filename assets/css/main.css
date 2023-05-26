@@ -3702,4 +3702,40 @@ input, select, textarea {
 				transform: none;
 			}
 
+		img.hero.small {
+			display: block;
+		}
+		img.hero.large {
+			display: none;
+		}
+
+	}
+
+
+/* Hero img */
+
+	body #wrapper img.hero.small,
+	body #wrapper img.hero.medium {
+			display: none;
+	}
+	body #wrapper img.hero.large {
+		display: block;
+	}
+
+/*	@media screen and (max-width: 736px) {
+		body #wrapper img.hero.small {
+			display: block;
+		}
+		body #wrapper img.hero.medium ,
+		body #wrapper img.hero.large {
+			display: none;
+		}
+	}*/
+	@media screen and (max-width: 736px) {
+		body #wrapper img.hero.small {
+			display: block;
+		}
+		body #wrapper img.hero.large {
+			display: none;
+		}
 	}
