@@ -112,56 +112,88 @@
 								</div>
 							</section>
 
-						<!-- Panel -->
+						<!-- Form reception -->
 							<section class="panel color2-alt">
 								<div class="intro color2">
-									<h2 class="major">Elements</h2>
-									<p>Sed vel nibh libero. Mauris et lorem pharetra massa lorem turpis congue pulvinar. Vivamus sed feugiat finibus. Duis amet bibendum amet sed. Duis mauris ex, dapibus sed ligula tempus volutpat magna etiam. </p>
+									<h2 class="major">Planning</h2>
+									<p>11u00 ceremonie</p>
+									<p>15u30 receptie</p>
 								</div>
-								<div class="inner columns aligned">									
+								<div class="inner columns">									
 									<div class="span-4-5">
-										<h3 class="major">Form</h3>
+										<!-- <h3 class="major">Aanwezigheid</h3> -->
 										<form method="post" action="#">
 											<div class="fields">
-												<div class="field third">
-													<label for="demo-name">Name</label>
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
-												</div>
-												<div class="field third">
-													<label for="demo-email">Email</label>
-													<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
-												</div>
-												<div class="field third">
-													<label for="demo-category">Category</label>
-													<div class="select-wrapper">
-														<select name="demo-category" id="demo-category">
-															<option value="">-</option>
-															<option value="1">Manufacturing</option>
-															<option value="1">Shipping</option>
-															<option value="1">Administration</option>
-															<option value="1">Human Resources</option>
-														</select>
-													</div>
-												</div>
-												<div class="field quarter">
-													<input type="radio" id="demo-priority-low" name="demo-priority" class="color2" checked />
-													<label for="demo-priority-low">Low Priority</label>
-												</div>
-												<div class="field quarter">
-													<input type="radio" id="demo-priority-high" name="demo-priority" class="color2" />
-													<label for="demo-priority-high">High Priority</label>
-												</div>
-												<div class="field quarter">
-													<input type="checkbox" id="demo-copy" name="demo-copy" class="color2" />
-													<label for="demo-copy">Email a copy</label>
-												</div>
-												<div class="field quarter">
-													<input type="checkbox" id="demo-human" name="demo-human" class="color2" checked />
-													<label for="demo-human">Not a robot</label>
-												</div>
 												<div class="field">
-													<label for="demo-message">Message</label>
-													<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="2"></textarea>
+													<input type="checkbox" id="aanwezig_1" name="aanwezig_1" class="color2" />
+													<label for="aanwezig_1">Ik zal aanwezig zijn</label>
+												</div>
+												<div class="field third">
+													<input type="checkbox" id="aanwezig_2" name="aanwezig_2" class="color2" />
+													<label for="aanwezig_2">Met mijn partner</label>
+												</div>
+												<div class="field half">
+													<input type="text" name="partner_naam" id="partner_naam" value="" placeholder="Naam partner" />
+												</div>
+											</div>
+											<ul class="actions">
+												<li><input type="submit" value="Send Message" class="primary color2" /></li>
+											</ul>
+										</form>
+									</div>
+								</div>
+							</section>
+
+						<!-- Form party -->
+							<section class="panel color2-alt">
+								<div class="intro color2">
+									<h2 class="major">Planning</h2>
+									<p>11u00 ceremonie</p>
+									<p>18u30 receptie</p>
+									<p>20u00 diner</p>
+									<p>23u00 avondfeest</p>
+								</div>
+								<div class="inner columns">									
+									<div class="span-4-5">
+										<!-- <h3 class="major">Aanwezigheid</h3> -->
+										<form method="post" action="#">
+											<div class="fields">
+												
+												<div class="field">
+													<input type="checkbox" id="aanwezig_1" name="aanwezig_1" class="color2" />
+													<label for="aanwezig_1">Ik zal aanwezig zijn</label>
+												</div>
+												<div class="field third">
+													<input type="checkbox" id="aanwezig_2" name="aanwezig_2" class="color2" />
+													<label for="aanwezig_2">Met mijn partner</label>
+												</div>
+												<div class="field half">
+													<input type="text" name="partner_naam" id="partner_naam" value="" placeholder="Naam partner" />
+												</div>
+						
+												<div class="field">
+										<h4 class="major">Aanwezig op</h4>
+									</div>
+												<div class="field third">
+													<input type="checkbox" id="aanwezig_receptie" name="aanwezig_receptie" class="color2" checked />
+													<label for="aanwezig_receptie">Receptie</label>
+												</div>
+												<div class="field third">
+													<input type="checkbox" id="aanwezig_diner" name="aanwezig_diner" class="color2" checked />
+													<label for="aanwezig_diner">Diner</label>
+												</div>
+												<div class="field third">
+													<input type="checkbox" id="aanwezig_feest" name="aanwezig_feest" class="color2" checked />
+													<label for="aanwezig_feest">Avondfeest</label>
+												</div>
+
+												<div class="field half">
+													<label for="field_food">Allergieën</label>
+													<textarea name="field_food" id="field_food" placeholder="Vul eventuele allergieën in." rows="2"></textarea>
+												</div>
+												<div class="field half">
+													<label for="field_dj">Tips voor de DJ</label>
+													<textarea name="field_dj" id="field_dj" placeholder="Special requests of algemene tips voor de DJ." rows="2"></textarea>
 												</div>
 											</div>
 											<ul class="actions">
