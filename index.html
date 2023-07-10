@@ -334,6 +334,9 @@ function showElementById(id, show) {
 
 			showElementById("aantal", isComing && data.count > 1);
 			showElementById("fields_feest", isComing && data.party);
+
+			// required should be of to be able to submit
+			document.getElementById("aantal").required = isComing;
 		}
 
 		document.getElementById("aanwezig_ja").addEventListener("change", handleYesNo);
