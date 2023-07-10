@@ -3740,6 +3740,6 @@ input, select, textarea {
 		}
 	}
 
-select:required option[value=""] {
+select:required option[value=""], select option[disabled] {
   display: none;
 }

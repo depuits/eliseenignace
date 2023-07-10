@@ -96,8 +96,7 @@
 								</div>
 								<div class="inner columns divided">
 									<div class="span-3-25">
-										<form method="get" action="https://AdvancedForms.net/api/data">
-											<input type="hidden" name="formId" id="formId" />
+										<form id="codeForm">
 											<div class="fields">
 												<div class="field">
 													<label for="personalCode">Persoonlijke code</label>
@@ -113,16 +112,27 @@
 							</section>
 
 						<!-- Form reception -->
-							<section class="panel color2-alt">
-								<div class="intro color2">
+							<section class="panel color2-alt" id="form" style="display: none;">
+								<div class="intro color2" id="intro_receptie">
 									<h2 class="major">Planning</h2>
 									<p>11u00 ceremonie</p>
 									<p>15u30 receptie</p>
 								</div>
+
+								<div class="intro color2" id="intro_feest">
+									<h2 class="major">Planning</h2>
+									<p>11u00 ceremonie</p>
+									<p>18u30 receptie</p>
+									<p>20u00 diner</p>
+									<p>23u00 avondfeest</p>
+								</div>
+
 								<div class="inner columns">									
 									<div class="span-4-5">
 										<!-- <h3 class="major">Aanwezigheid</h3> -->
-										<form method="post" action="#">
+										<form id="rsvpForm">
+											<input type="hidden" name="code" id="formCode" value="" />
+
 											<div class="fields">		
 												<div class="field">
 													<h4 class="major">Aanwezig?</h4>
@@ -137,6 +147,12 @@
 														<option value="">Aantal personen</option>
 														<option value="1">Alleen</option>
 														<option value="2">Met 2</option>
+														<option value="3">Met 3</option>
+														<option value="4">Met 4</option>
+														<option value="5">Met 5</option>
+														<option value="6">Met 6</option>
+														<option value="7">Met 7</option>
+														<option value="8">Met 8</option>
 													</select>
 												</div>
 
@@ -145,50 +161,8 @@
 													<label for="aanwezig_nee">Nee</label>
 												</div>
 											</div>
-											<ul class="actions">
-												<li><input type="submit" value="Send Message" class="primary color2" /></li>
-											</ul>
-										</form>
-									</div>
-								</div>
-							</section>
-
-						<!-- Form party -->
-							<section class="panel color2-alt">
-								<div class="intro color2">
-									<h2 class="major">Planning</h2>
-									<p>11u00 ceremonie</p>
-									<p>18u30 receptie</p>
-									<p>20u00 diner</p>
-									<p>23u00 avondfeest</p>
-								</div>
-								<div class="inner columns">									
-									<div class="span-4-5">
-										<!-- <h3 class="major">Aanwezigheid</h3> -->
-										<form method="post" action="#">
-											<div class="fields">
-												
-												<div class="field">
-													<h4 class="major">Aanwezig?</h4>
-												</div>
-					
-												<div class="field third">
-													<input type="radio" id="aanwezig_ja" name="aanwezig" class="color2" value="ja" required />
-													<label for="aanwezig_ja">Ja</label>
-												</div>
-												<div class="field half">
-													<select name="aantal" id="aantal" required>
-														<option value="">Aantal personen</option>
-														<option value="1">Alleen</option>
-														<option value="2">Met 2</option>
-													</select>
-												</div>
-
-												<div class="field">
-													<input type="radio" id="aanwezig_nee" name="aanwezig" class="color2" value="nee" />
-													<label for="aanwezig_nee">Nee</label>
-												</div>
-						
+											
+											<div class="fields" id="fields_feest">
 												<div class="field">
 													<h4 class="major">Aanwezig op</h4>
 												</div>
@@ -214,6 +188,7 @@
 													<textarea name="field_dj" id="field_dj" placeholder="Special requests of algemene tips voor de DJ." rows="2"></textarea>
 												</div>
 											</div>
+
 											<ul class="actions">
 												<li><input type="submit" value="Send Message" class="primary color2" /></li>
 											</ul>
@@ -236,12 +211,18 @@
 			<script src="assets/js/main.js"></script>
 
 			<script>
+let data = {};
+
 function classTextUpdate(className, text)
 {
 	var x = document.getElementsByClassName(className);
 	for(var i = 0; i < x.length; i++) { 
 		x[i].innerText = text;
 	}
+}
+
+function showElementById(id, show) {
+	document.getElementById(id).style.display = show ? '' : 'none';
 }
 
 (function () {
@@ -278,9 +259,85 @@ function classTextUpdate(className, text)
 			classTextUpdate("timer hours", hours);
 			classTextUpdate("timer minutes", minutes);
 			classTextUpdate("timer seconds", seconds);
-
-			//seconds
 		}, 200);
+
+		//form handling
+		function displayRsvp(code, names, count, party) {
+			data.count = count;
+			data.party = party;
+			data.code = code;
+
+			// deselect responses from previous entry
+			document.getElementById("rsvpForm").reset();
+
+			// add code to form fields
+			document.getElementById("formCode").value = code;
+
+			// change amount selection
+			showElementById("aantal", false); // always hide and show if yes is selected
+			let countEle = document.getElementById("aantal");
+			for (i = 0; i < countEle.options.length; ++i) {
+				let curVal = countEle.options[i].value;
+				countEle.options[i].disabled = (curVal > count);
+			};
+
+			// display reception or party info
+			showElementById("intro_receptie", !party);
+			showElementById("intro_feest", party);
+			showElementById("fields_feest", false); // only displayed after selecting yes
+
+			// show complete form
+			showElementById("form", true);
+			document.getElementById("form").scrollIntoView();
+		}
+
+		let codeLoading = false;
+		function submitFormCode(event) {
+			event.preventDefault();
+			if (codeLoading) {
+				return;
+			}
+
+			codeLoading = true;
+			showElementById("form", false);
+			let code = document.getElementById("personalCode").value;
+
+			//TODO get details from backend
+			//code.toUpper()
+			let count = code.substring(3);
+			console.log('count: ' + count)
+			if (code.startsWith("fee")) {
+				displayRsvp (code, "names", +count, true);
+			} else if (code.startsWith("rec")) {
+				displayRsvp (code, "names", +count, false);
+			} else {
+				alert('Ongeldige code.');
+			}
+
+			codeLoading = false;
+		}
+
+		function submitFormRsvp(event) {
+			//TODO implement backend call
+			alert('TODO');
+
+			event.preventDefault();
+		}
+
+
+		document.getElementById("codeForm").addEventListener("submit", submitFormCode);
+		document.getElementById("rsvpForm").addEventListener("submit", submitFormRsvp);
+
+		//form change events
+		function handleYesNo(event) {
+			let isComing = event.target.value == "ja";
+
+			showElementById("aantal", isComing && data.count > 1);
+			showElementById("fields_feest", isComing && data.party);
+		}
+
+		document.getElementById("aanwezig_ja").addEventListener("change", handleYesNo);
+		document.getElementById("aanwezig_nee").addEventListener("change", handleYesNo);
 })();
 			</script>
 	</body>
