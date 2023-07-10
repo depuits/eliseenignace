@@ -123,17 +123,26 @@
 									<div class="span-4-5">
 										<!-- <h3 class="major">Aanwezigheid</h3> -->
 										<form method="post" action="#">
-											<div class="fields">
+											<div class="fields">		
 												<div class="field">
-													<input type="checkbox" id="aanwezig_1" name="aanwezig_1" class="color2" />
-													<label for="aanwezig_1">Ik zal aanwezig zijn</label>
+													<h4 class="major">Aanwezig?</h4>
 												</div>
+					
 												<div class="field third">
-													<input type="checkbox" id="aanwezig_2" name="aanwezig_2" class="color2" />
-													<label for="aanwezig_2">Met mijn partner</label>
+													<input type="radio" id="aanwezig_ja" name="aanwezig" class="color2" value="ja" required />
+													<label for="aanwezig_ja">Ja</label>
 												</div>
 												<div class="field half">
-													<input type="text" name="partner_naam" id="partner_naam" value="" placeholder="Naam partner" />
+													<select name="aantal" id="aantal" required>
+														<option value="">Aantal personen</option>
+														<option value="1">Alleen</option>
+														<option value="2">Met 2</option>
+													</select>
+												</div>
+
+												<div class="field">
+													<input type="radio" id="aanwezig_nee" name="aanwezig" class="color2" value="nee" />
+													<label for="aanwezig_nee">Nee</label>
 												</div>
 											</div>
 											<ul class="actions">
@@ -160,20 +169,29 @@
 											<div class="fields">
 												
 												<div class="field">
-													<input type="checkbox" id="aanwezig_1" name="aanwezig_1" class="color2" />
-													<label for="aanwezig_1">Ik zal aanwezig zijn</label>
+													<h4 class="major">Aanwezig?</h4>
 												</div>
+					
 												<div class="field third">
-													<input type="checkbox" id="aanwezig_2" name="aanwezig_2" class="color2" />
-													<label for="aanwezig_2">Met mijn partner</label>
+													<input type="radio" id="aanwezig_ja" name="aanwezig" class="color2" value="ja" required />
+													<label for="aanwezig_ja">Ja</label>
 												</div>
 												<div class="field half">
-													<input type="text" name="partner_naam" id="partner_naam" value="" placeholder="Naam partner" />
+													<select name="aantal" id="aantal" required>
+														<option value="">Aantal personen</option>
+														<option value="1">Alleen</option>
+														<option value="2">Met 2</option>
+													</select>
+												</div>
+
+												<div class="field">
+													<input type="radio" id="aanwezig_nee" name="aanwezig" class="color2" value="nee" />
+													<label for="aanwezig_nee">Nee</label>
 												</div>
 						
 												<div class="field">
-										<h4 class="major">Aanwezig op</h4>
-									</div>
+													<h4 class="major">Aanwezig op</h4>
+												</div>
 												<div class="field third">
 													<input type="checkbox" id="aanwezig_receptie" name="aanwezig_receptie" class="color2" checked />
 													<label for="aanwezig_receptie">Receptie</label>

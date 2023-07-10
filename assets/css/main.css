@@ -3739,3 +3739,7 @@ input, select, textarea {
 			display: none;
 		}
 	}
+
+select:required option[value=""] {
+  display: none;
+}
