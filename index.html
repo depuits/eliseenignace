@@ -130,8 +130,9 @@
 								<div class="inner columns">									
 									<div class="span-4-5">
 										<!-- <h3 class="major">Aanwezigheid</h3> -->
-										<form id="rsvpForm">
-											<input type="hidden" name="code" id="formCode" value="" />
+										<form id="rsvpForm" method="post" action="https://advancedforms.bok19.net/Data/a89010d6-5f6f-4d70-a954-b8649c80bd67">
+											<input type="hidden" name="personalCode" id="formCode" value="" />
+											<input type="hidden" name="_redirect" value="https://eliseenignace.be/success.html" />
 
 											<div class="fields">		
 												<div class="field">
@@ -300,33 +301,34 @@ function showElementById(id, show) {
 
 			codeLoading = true;
 			showElementById("form", false);
-			let code = document.getElementById("personalCode").value;
+			let code = document.getElementById("personalCode").value.toUpperCase();
 
-			//TODO get details from backend
-			//code.toUpper()
-			let count = code.substring(3);
-			console.log('count: ' + count)
-			if (code.startsWith("fee")) {
-				displayRsvp (code, "names", +count, true);
-			} else if (code.startsWith("rec")) {
-				displayRsvp (code, "names", +count, false);
-			} else {
-				alert('Ongeldige code.');
-			}
+			const value = encodeURIComponent(code).replace('%20','+');
+			const url = "https://advancedforms.bok19.net/Data/a89010d6-5f6f-4d70-a954-b8649c80bd67?personalCode=" + value;
 
-			codeLoading = false;
+			// get details from backend
+			fetch(url)
+				.then((response) => {
+					if (response.status === 200) {
+						return response.json();
+					} else {
+						throw new Error("Something went wrong on API server!");
+					}
+				})
+				.then((data) => {
+					let party = (data.staticData.type === "party");
+					let count = +data.staticData.count;
+					displayRsvp (code, "names", count, party);
+				})
+				.catch((error) => {
+					alert('Ongeldige code of service tijdelijk niet beschikbaar. Controleer de code of probeer later opnieuw.');
+				})
+				.finally(() => {
+					codeLoading = false;
+				});
 		}
-
-		function submitFormRsvp(event) {
-			//TODO implement backend call
-			alert('TODO');
-
-			event.preventDefault();
-		}
-
 
 		document.getElementById("codeForm").addEventListener("submit", submitFormCode);
-		document.getElementById("rsvpForm").addEventListener("submit", submitFormRsvp);
 
 		//form change events
 		function handleYesNo(event) {
