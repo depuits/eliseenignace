@@ -333,12 +333,13 @@ function showElementById(id, show) {
 		//form change events
 		function handleYesNo(event) {
 			let isComing = event.target.value == "ja";
+			let fillCount = isComing && data.count > 1;
 
-			showElementById("aantal", isComing && data.count > 1);
+			showElementById("aantal", fillCount);
 			showElementById("fields_feest", isComing && data.party);
 
 			// required should be of to be able to submit
-			document.getElementById("aantal").required = isComing;
+			document.getElementById("aantal").required = fillCount;
 		}
 
 		document.getElementById("aanwezig_ja").addEventListener("change", handleYesNo);
