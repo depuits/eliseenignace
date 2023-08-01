@@ -227,6 +227,18 @@ function showElementById(id, show) {
 }
 
 (function () {
+	let serviceOnline = true; // by default we assume the service is online
+	//check if service is actually online
+	fetch("https://advancedforms.bok19.net/healthz")
+		.then((response) => {
+			if (response.status !== 200) {
+				throw new Error("Something went wrong on API server!");
+			}
+		})
+		.catch((error) => {
+			serviceOnline = false;
+		});
+
 	const second = 1000,
 		minute = second * 60,
 		hour = minute * 60,
@@ -296,6 +308,11 @@ function showElementById(id, show) {
 		function submitFormCode(event) {
 			event.preventDefault();
 			if (codeLoading) {
+				return;
+			}
+
+			if (!serviceOnline) {
+				alert('Service is tijdelijk niet beschikbaar. Probeer later opnieuw.');
 				return;
 			}
 
